@@ -9,7 +9,8 @@ st.set_page_config(page_title="Worklense", layout="wide")
 
 # === Inject global CSS ===
 try:
-    with open("config/style.css") as f:
+    css_path = os.path.join(os.path.dirname(__file__), "config", "style.css")
+    with open(css_path) as f:
         css = f.read()
         st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 except FileNotFoundError:
@@ -39,7 +40,9 @@ config = {}
 
 # --- Modular report loading ---
 def get_report_modules():
-    report_folder = "reports"
+    report_folder = os.path.join(os.path.dirname(__file__), "reports")
+    if not os.path.exists(report_folder):
+        os.makedirs(report_folder)
     files = [f for f in os.listdir(report_folder) if f.endswith(".py") and not f.startswith("__")]
     modules = [f[:-3] for f in files]
     return modules
@@ -52,7 +55,7 @@ selected_report = st.sidebar.selectbox(
     "Select Report",
     report_modules,
     format_func=lambda x: x.replace("_", " ").title()
-)
+) if report_modules else None
 
 st.sidebar.markdown("**Filters**")
 
@@ -72,7 +75,7 @@ with st.sidebar.expander("Show Filters", expanded=False):
             if col_idx >= len(filter_columns):
                 continue
             col = filter_columns[col_idx]
-            options = sorted([str(x) for x in emp_df[col].dropna().unique()])
+            options = sorted([str(x) for x in emp_df[col].dropna().unique()]) if not emp_df.empty else []
             key = f"sidebar_{col}"
             with cols[i]:
                 chosen = st.multiselect(
@@ -94,11 +97,16 @@ data['employee_master'] = filtered_emp
 
 # --- Run the selected report ---
 if selected_report:
-    mod = importlib.import_module(f"reports.{selected_report}")
-    if hasattr(mod, "run_report"):
-        mod.run_report(data, config)
-    else:
-        st.error(f"Report module '{selected_report}' must have a 'run_report(data, config)' function.")
+    try:
+        mod = importlib.import_module(f"reports.{selected_report}")
+        if hasattr(mod, "run_report"):
+            mod.run_report(data, config)
+        else:
+            st.error(f"Report module '{selected_report}' must have a 'run_report(data, config)' function.")
+    except ImportError as e:
+        st.error(f"Could not load report module: {str(e)}")
+    except Exception as e:
+        st.error(f"Error running report: {str(e)}")
 
 # === Footer (Worklense brand) ===
 st.markdown(
