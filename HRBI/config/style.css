@@ -1,0 +1,130 @@
+/* ===== Global Font & Background ===== */
+body, .main, .stApp {
+    font-family: 'Segoe UI', 'Inter', Arial, sans-serif !important;
+    background: #f6f8fa !important;
+    color: #22223b !important;
+}
+
+/* ===== Sidebar Styling ===== */
+section[data-testid="stSidebar"] {
+    background: #142A4F !important;
+    color: white !important;
+}
+section[data-testid="stSidebar"] .stMarkdown,
+section[data-testid="stSidebar"] label {
+    color: white !important;
+    font-weight: 500;
+}
+section[data-testid="stSidebar"] .stSelectbox,
+section[data-testid="stSidebar"] .stMultiSelect {
+    background: #142A4F !important;
+}
+section[data-testid="stSidebar"] .stMultiSelect span[aria-label][data-baseweb="tag"] {
+    background: #406080 !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* ===== Header & Footer ===== */
+.custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #142A4F;
+    color: white;
+    padding: 12px 32px 10px 32px;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.custom-header .brand-name { font-size: 22px; font-weight: bold; color: #00D2FF; }
+.custom-header .brand-tagline { font-size: 13px; font-style: italic; color: #c5dbfc; margin-top: 2px; }
+.custom-header .header-right a, .custom-header .header-right .header-logout {
+    color: white; text-decoration: none; font-size: 15px; font-weight: 500;
+}
+.custom-header .header-right a:hover,
+.custom-header .header-right .header-logout:hover {
+    text-decoration: underline;
+}
+.custom-footer {
+    text-align: center;
+    padding: 12px 10px 5px;
+    background: #142A4F;
+    color: white;
+    font-size: 13px;
+    margin-top: 40px;
+    font-family: 'Segoe UI', sans-serif;
+    position: sticky;
+    bottom: 0;
+    z-index: 999;
+}
+
+/* ===== Compact KPI Card Styling ===== */
+.kpi-card {
+    background: linear-gradient(135deg, #e8f0fa 80%, #c7d5ef 100%);
+    border-radius: 19px;
+    padding: 14px 10px 12px 10px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(36,52,84,0.09);
+    min-height: 82px;
+    width: 185px;
+    margin-bottom: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: box-shadow 0.17s, transform 0.16s;
+    position: relative;
+}
+.kpi-card:hover {
+    box-shadow: 0 8px 26px rgba(60,72,127,0.18);
+    transform: scale(1.03);
+}
+
+/* Accent bar with glow effect */
+.kpi-accent {
+    height: 4px;
+    width: 32px;
+    background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+    border-radius: 5px;
+    margin-bottom: 7px;
+    box-shadow: 0 0 8px #36d1dc66, 0 0 10px #5b86e544;
+}
+
+/* KPI Label & Value */
+.kpi-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #25476a;
+    opacity: 0.92;
+    margin-bottom: 2px;
+    letter-spacing: 0.10px;
+    text-shadow: 0 1px 2px #dbeafe55;
+}
+.kpi-value {
+    font-size: 19px;
+    font-weight: 700;
+    color: #1A2340;
+    margin-top: 2px;
+    white-space: nowrap;
+    text-shadow: 0 1.5px 4px #dbeafe3c;
+}
+
+/* ===== Main Content Area ===== */
+section.main {
+    background: #f6f8fa !important;
+    color: #22223b !important;
+}
+section.main > div {
+    max-width: 100% !important;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* ===== Uniform Spacing for Columns ===== */
+div[class^="stColumn"] > div {
+    height: 100%;
+    padding: 5px;
+}
